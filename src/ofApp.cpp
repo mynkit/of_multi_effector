@@ -1,13 +1,16 @@
 #include "ofApp.h"
 
-const int DELAYTIME = 400; //delayの感覚
+const int BUFFERSIZE = 512; //バッファサイズ
+const int SAMPLERATE = 44100; //サンプルレート(Hz)
+
+const int DELAYTIME = 400; //delayの感覚(ms)
 const float DECAYRATE = 0.7; //delay音の減衰率
 
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    bufferSize = 512;
-    sampleRate = 44100;
+    bufferSize = BUFFERSIZE;
+    sampleRate = SAMPLERATE;
     inputBuffer.resize(bufferSize);
     
     myTapIn = new tapIn(10000, sampleRate);
