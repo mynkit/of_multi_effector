@@ -3,6 +3,8 @@
 ## openFrameworks
 [github page](https://github.com/openframeworks/openFrameworks)
 
+基本いじるのは`src/`配下のファイルのみです
+
 ## OS
 
 `MacOS Mojave 10.14.5`
