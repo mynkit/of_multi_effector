@@ -83,6 +83,7 @@ public:
     
     
     int bufferSize;
+    int sampleRate;
     vector<float> inputBuffer;
     
     tapIn* myTapIn;

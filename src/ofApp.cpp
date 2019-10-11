@@ -1,16 +1,20 @@
 #include "ofApp.h"
 
+const int DELAYTIME = 400; //delayの感覚
+const float DECAYRATE = 0.7; //delay音の減衰率
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
     bufferSize = 512;
+    sampleRate = 44100;
     inputBuffer.resize(bufferSize);
     
-    myTapIn = new tapIn(10000, 44100);
+    myTapIn = new tapIn(10000, sampleRate);
     
-    myTapOut = new tapOut(myTapIn, 500);
+    myTapOut = new tapOut(myTapIn, DELAYTIME);
     
-    ofSoundStreamSetup(2, 1, 44100, bufferSize, 4);
+    ofSoundStreamSetup(2, 1, sampleRate, bufferSize, 4);
 }
 
 //--------------------------------------------------------------
@@ -37,7 +41,7 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
         float currentSample = inputBuffer[i];
         float tapOutSample = myTapOut->getSample();
         
-        myTapIn->feed(currentSample + (tapOutSample*0.05));
+        myTapIn->feed(currentSample + (tapOutSample*DECAYRATE));
         //myTapIn->feed(currentSample);
         
         
@@ -104,6 +108,6 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void ofApp::exit(){
-    //ofSoundStreamClose();
+    ofSoundStreamClose();
 }
 
