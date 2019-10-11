@@ -4,7 +4,7 @@ const int BUFFERSIZE = 512; //バッファサイズ
 const int SAMPLERATE = 44100; //サンプルレート(Hz)
 
 const int DELAYTIME = 400; //delayの感覚(ms)
-const float DECAYRATE = 0.7; //delay音の減衰率
+const float DECAYRATE = 0.5; //delay音の減衰率
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -48,8 +48,8 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
         //myTapIn->feed(currentSample);
         
         
-        buffer[i*nChannels+0] = currentSample + tapOutSample;
-        buffer[i*nChannels+1] = currentSample + tapOutSample;
+        buffer[i*nChannels+0] = currentSample + (tapOutSample*DECAYRATE);
+        buffer[i*nChannels+1] = currentSample + (tapOutSample*DECAYRATE);
     }
     
 }
