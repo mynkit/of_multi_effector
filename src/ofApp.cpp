@@ -3,7 +3,8 @@
 const int BUFFERSIZE = 512; //バッファサイズ
 const int SAMPLERATE = 44100; //サンプルレート(Hz)
 
-const int DELAYTIME = 400; //delayの感覚(ms)
+const int MAXDELAYTIME = 1000; //delayの間隔の最大値(これよりDELAYTIMEが上回るとエラー)．
+const int DELAYTIME = 400; //delayの間隔(ms)
 const float DECAYRATE = 0.5; //delay音の減衰率
 
 //--------------------------------------------------------------
@@ -13,7 +14,7 @@ void ofApp::setup(){
     sampleRate = SAMPLERATE;
     inputBuffer.resize(bufferSize);
     
-    myTapIn = new tapIn(10000, sampleRate);
+    myTapIn = new tapIn(MAXDELAYTIME, sampleRate);
     
     myTapOut = new tapOut(myTapIn, DELAYTIME);
     

@@ -4,6 +4,11 @@
 
 
 class tapIn{
+/* inputされた音を保持しておくクラス
+Args:
+    time_ms (float): 何msDalay用に音を保持しておくか(これよりDELAYTIMEが上回ることはできない)
+    _sampleRate (int): サンプルレート
+*/
     
 public:
     float* buffer;
@@ -22,6 +27,10 @@ public:
     }
     
     void feed(float currentSample){
+        /* currentSampleをbuffer (float*)に格納して保持しておく
+        Args:
+            currentSample (float): 現在のサンプル．
+        */
         buffer[writeIndex] = currentSample;
         writeIndex++;
         if(writeIndex>=size){ writeIndex = 0;}
@@ -30,6 +39,11 @@ public:
 };
 
 class tapOut{
+/*
+Args:
+    inRef (tapIn*): tapInをそのまま渡す
+    time_ms (float): 何ms遅延(delay)させるか
+*/
     
 public:
     
@@ -49,6 +63,10 @@ public:
     }
     
     float getSample(){
+        /* 現在のサンプルを返す
+        Returns:
+            float
+        */
         float temp = ref[readPoint];
         readPoint++;
         if(readPoint >= size){readPoint = 0;}
