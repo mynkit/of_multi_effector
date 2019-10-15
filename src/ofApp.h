@@ -1,3 +1,10 @@
+/**
+* @file ofApp.h
+* @brief クラスや変数定義
+* @author mynkit
+* @date 2019/10
+*/
+
 #pragma once
 
 #include "ofMain.h"
@@ -25,12 +32,14 @@ public:
         sampleRate = _sampleRate;
         size = _size;
     }
-    
+    /**
+     * @fn
+     * currentSampleをbuffer (float*)に格納して保持しておく
+     * @param (currentSample) 現在のサンプル
+     * @return 戻り値の説明
+     * @sa 参照すべき関数を書けばリンクが貼れる
+     */
     void feed(float currentSample){
-        /* currentSampleをbuffer (float*)に格納して保持しておく
-        Args:
-            currentSample (float): 現在のサンプル．
-        */
         buffer[writeIndex] = currentSample;
         writeIndex++;
         if(writeIndex>=size){ writeIndex = 0;}
@@ -38,12 +47,10 @@ public:
     
 };
 
+/**
+ * @brief 入力されたサンプルを指定の秒数だけ保持
+ */
 class tapOut{
-/*
-Args:
-    inRef (tapIn*): tapInをそのまま渡す
-    time_ms (float): 何ms遅延(delay)させるか
-*/
     
 public:
     
@@ -53,20 +60,28 @@ public:
     int sampleRate;
     
     ~tapOut();
+    /**
+     * @brief 変数の値の保持
+     * @param (inRef) tapInクラスをオブジェクト化したもの
+     * @param (time_ms) 何ms分Delayさせるか
+     */
     tapOut(tapIn* inRef, float time_ms){
-        
+        //! バッファ
         ref = inRef->buffer;
+        //! 保持されている音のサンプルサイズ
         size = inRef->size;
+        //! サンプルレート
         sampleRate = inRef->sampleRate;
+        //! 保持されているサンプルの中からディレイで使うサンプル
         readPoint = size - (time_ms*0.001*sampleRate)-1;
         
     }
-    
+    /**
+     * @fn
+     * 現在のサンプルを返す
+     * @return 現在のサンプル
+     */
     float getSample(){
-        /* 現在のサンプルを返す
-        Returns:
-            float
-        */
         float temp = ref[readPoint];
         readPoint++;
         if(readPoint >= size){readPoint = 0;}
@@ -103,7 +118,7 @@ public:
     int bufferSize;
     int sampleRate;
     vector<float> inputBuffer;
-    
+
     tapIn* myTapIn;
     tapOut* myTapOut;
     
