@@ -9,13 +9,10 @@
 
 #include "ofMain.h"
 
-
+/**
+ * @brief 入力されたサンプルを指定の秒数だけ保持
+ */
 class tapIn{
-/* inputされた音を保持しておくクラス
-Args:
-    time_ms (float): 何msDalay用に音を保持しておくか(これよりDELAYTIMEが上回ることはできない)
-    _sampleRate (int): サンプルレート
-*/
     
 public:
     float* buffer;
@@ -48,7 +45,7 @@ public:
 };
 
 /**
- * @brief 入力されたサンプルを指定の秒数だけ保持
+ * @brief 入力されたサンプルを変換して返す
  */
 class tapOut{
     
