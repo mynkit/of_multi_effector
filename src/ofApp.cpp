@@ -1,13 +1,20 @@
+/**
+* @file ofApp.cpp
+* @brief 処理のコア部分
+* @author mynkit
+* @date 2019/10
+*/
+
 #include "ofApp.h"
 #include <iostream>
 using namespace std;
 
-const int BUFFERSIZE = 256; //バッファサイズ
-const int SAMPLERATE = 44100; //サンプルレート(Hz)
+const int BUFFERSIZE = 256; //! バッファサイズ
+const int SAMPLERATE = 44100; //! サンプルレート(Hz)
 
-const int MAXDELAYTIME = 1000; //delayの間隔の最大値(これよりDELAYTIMEが上回るとエラー)．
-const int DELAYTIME = 400; //delayの間隔(ms)
-const float DECAYRATE = 0.5; //delay音の減衰率
+const int MAXDELAYTIME = 1000; //! delayの間隔の最大値(これよりDELAYTIMEが上回るとエラー)．
+const int DELAYTIME = 400; //! delayの間隔(ms)
+const float DECAYRATE = 0.5; //! delay音の減衰率
 
 //--------------------------------------------------------------
 void ofApp::setup(){

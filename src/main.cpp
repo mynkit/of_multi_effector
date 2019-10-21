@@ -1,3 +1,10 @@
+/**
+* @file main.cpp
+* @brief メイン関数
+* @author mynkit
+* @date 2019/10
+*/
+
 #include "ofMain.h"
 #include "ofApp.h"
 
