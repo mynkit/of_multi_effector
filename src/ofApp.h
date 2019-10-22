@@ -150,5 +150,7 @@ public:
 
     delayIn* myDelayIn;
     delayOut* myDelayOut;
+
+    bool delayOn;
     
 };

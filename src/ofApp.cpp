@@ -26,6 +26,7 @@ void ofApp::setup(){
     
     myDelayIn = new delayIn(MAXDELAYTIME, sampleRate);
     myDelayOut = new delayOut(myDelayIn, DELAYTIME, DECAYRATE);
+    delayOn = false;
     
     ofSoundStreamSetup(2, 1, sampleRate, bufferSize, 4);
 }
@@ -52,26 +53,27 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
     for(int i = 0; i < bufferSize; i++){
         
         float currentSample = inputBuffer[i];
-        float delayOutSample = myDelayOut->getSample();
-        
-        myDelayIn->feed(currentSample + (delayOutSample));
-        
-        buffer[i*nChannels+0] = currentSample + (delayOutSample);
-        buffer[i*nChannels+1] = currentSample + (delayOutSample);
+        if (delayOn == true){
+            float delayOutSample = myDelayOut->getSample();
+            
+            myDelayIn->feed(currentSample + (delayOutSample));
+            
+            buffer[i*nChannels+0] = currentSample + (delayOutSample);
+            buffer[i*nChannels+1] = currentSample + (delayOutSample);
+        } else{
+            buffer[i*nChannels+0] = currentSample;
+            buffer[i*nChannels+1] = currentSample;
+        }
     }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if (key == 'x'){
-        int new_delay_time = 100;
-        float new_decay_rate = 0.2;
-        myDelayOut->changeDelayTime(new_delay_time);
-        myDelayOut->changeDecayRate(new_decay_rate);
+    if (key == 'd'){
+        delayOn = true;
     } else if (key == 'z'){
-        myDelayOut->changeDelayTime(DELAYTIME);
-        myDelayOut->changeDecayRate(DECAYRATE);
+        delayOn = false;
     }
 }
 
@@ -82,7 +84,14 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-    
+    if (delayOn == true){
+        int new_delay_time = x;
+        float new_decay_rate = y / 1000.0;
+        if(new_delay_time >= MAXDELAYTIME){new_delay_time = MAXDELAYTIME - 1;}
+        if(new_decay_rate >= 0.7){new_decay_rate = 0.7;}
+        myDelayOut->changeDelayTime(new_delay_time);
+        myDelayOut->changeDecayRate(new_decay_rate);
+    }
 }
 
 //--------------------------------------------------------------
