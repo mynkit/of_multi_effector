@@ -22,7 +22,7 @@ openframeworksのディレクトリを
 `~/openframeworks/of_v0.10.1_osx_release/apps/myApps/`  
 にclone
 
-## Usage
+## Usage(遊び方)
 
 ※ ハウリングするためイヤホン(マイク付き)推奨
 
@@ -31,16 +31,18 @@ $ make #コンパイル時のみ
 $ make RunRelease
 ```
 
+画面が立ち上がったら，
+
+* ボタンタップ
+
+'d': ディレイエフェクトを起動
+'z': ディレイエフェクトを止める
+
+* マウス移動
+
+横の移動: delayTimeの長さを変更(現状,あまり早く動かすとノイズでます)
+たての移動: decayRateを変更(現状,あまり早く動かすとノイズでます)
+
 処理を止めたいときは，ターミナル上で  
 `Ctrl + C`  
 で終了するのが安全
-
-### Setting
-
-ディレイタイムやDECAY(減衰率)をいじりたいときは  
-`src/ofApp.cpp`の  
-```cpp
-const int DELAYTIME = 400; //delayの感覚
-const float DECAYRATE = 0.7; //delay音の減衰率
-```
-の値をいじる
