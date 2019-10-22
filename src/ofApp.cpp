@@ -81,7 +81,7 @@ void ofApp::keyReleased(int key){
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
     if (delayOn == true){
-        int new_delay_time = x;
+        int new_delay_time = x / 10 * 10;
         float new_decay_rate = y / 1000.0;
         if(new_delay_time >= MAXDELAYTIME){new_delay_time = MAXDELAYTIME - 1;}
         if(new_decay_rate >= 0.7){new_decay_rate = 0.7;}
