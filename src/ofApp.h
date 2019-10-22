@@ -65,14 +65,12 @@ public:
     /**
      * @brief 変数の値の保持
      * @param (inRef) tapInクラスをオブジェクト化したもの
-     * @param (delay_time) 何ms分Delayさせるか
-     * @param (decay_rate)
      */
-    delayOut(delayIn* inRef, int delay_time, float decay_rate){
-        //! 現在のdelaytime(ms)
-        currentDelayTime = delay_time;
-        //! 現在のdecayrate
-        currentDecayRate = decay_rate;
+    delayOut(delayIn* inRef){
+        //! 現在のdelaytime(ms) 最初は適当に初期値いれておく
+        currentDelayTime = 400;
+        //! 現在のdecayrate 最初は適当に初期値いれておく
+        currentDecayRate = 0.5;
         //! バッファ
         ref = inRef->buffer;
         //! 保持されている音のサンプルサイズ

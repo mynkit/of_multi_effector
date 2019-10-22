@@ -13,8 +13,6 @@ const int BUFFERSIZE = 256; //! バッファサイズ
 const int SAMPLERATE = 44100; //! サンプルレート(Hz)
 
 const int MAXDELAYTIME = 1000; //! delayの間隔の最大値(これよりDELAYTIMEが上回るとエラー)．
-const int DELAYTIME = 400; //! delayの間隔(ms)
-const float DECAYRATE = 0.5; //! delay音の減衰率
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -25,7 +23,7 @@ void ofApp::setup(){
     inputBuffer.resize(bufferSize);
 
     myDelayIn = new delayIn(MAXDELAYTIME, sampleRate);
-    myDelayOut = new delayOut(myDelayIn, DELAYTIME, DECAYRATE);
+    myDelayOut = new delayOut(myDelayIn);
     delayOn = false;
     
     ofSoundStreamSetup(2, 1, sampleRate, bufferSize, 4);
