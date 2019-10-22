@@ -15,7 +15,7 @@ using namespace std;
 /**
  * @brief 入力されたサンプルを指定の秒数だけ保持
  */
-class tapIn{
+class delayIn{
     
 public:
     float* buffer;
@@ -23,8 +23,8 @@ public:
     int size;
     int sampleRate;
     
-    ~tapIn();
-    tapIn(float time_ms, int _sampleRate){
+    ~delayIn();
+    delayIn(float time_ms, int _sampleRate){
         
         static const int _size = (time_ms*0.001*_sampleRate);
         buffer = new float[_size];
@@ -50,7 +50,7 @@ public:
 /**
  * @brief 入力されたサンプルを変換して返す
  */
-class tapOut{
+class delayOut{
     
 public:
     
@@ -61,14 +61,14 @@ public:
     float currentDecayRate;
     int sampleRate;
     
-    ~tapOut();
+    ~delayOut();
     /**
      * @brief 変数の値の保持
      * @param (inRef) tapInクラスをオブジェクト化したもの
      * @param (delay_time) 何ms分Delayさせるか
      * @param (decay_rate)
      */
-    tapOut(tapIn* inRef, int delay_time, float decay_rate){
+    delayOut(delayIn* inRef, int delay_time, float decay_rate){
         //! 現在のdelaytime(ms)
         currentDelayTime = delay_time;
         //! 現在のdecayrate
@@ -95,12 +95,24 @@ public:
         return temp * currentDecayRate;
     }
 
+    /**
+     * @fn
+     * delaytimeを変更する
+     * @param (delaytime) 新たなdelaytime
+     * @return 現在のサンプル
+     */
     void changeDelayTime(float newDelayTime){
         readPoint -= (newDelayTime - currentDelayTime) * 0.001 * sampleRate;
         if(readPoint >= size){readPoint = 0;}
         currentDelayTime = newDelayTime;
     }
 
+    /**
+     * @fn
+     * decayrateを変更する
+     * @param (newDecayRate) 新たなdecayrate
+     * @return 現在のサンプル
+     */
     void changeDecayRate(float newDecayRate){
         currentDecayRate = newDecayRate;
     }
@@ -136,7 +148,7 @@ public:
     int sampleRate;
     vector<float> inputBuffer;
 
-    tapIn* myTapIn;
-    tapOut* myTapOut;
+    delayIn* myDelayIn;
+    delayOut* myDelayOut;
     
 };
