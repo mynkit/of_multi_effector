@@ -9,6 +9,9 @@
 
 #include "ofMain.h"
 
+#include <iostream>
+using namespace std;
+
 /**
  * @brief 入力されたサンプルを指定の秒数だけ保持
  */
@@ -54,15 +57,22 @@ public:
     float* ref;
     int size;
     int readPoint;
+    int currentDelayTime;
+    float currentDecayRate;
     int sampleRate;
     
     ~tapOut();
     /**
      * @brief 変数の値の保持
      * @param (inRef) tapInクラスをオブジェクト化したもの
-     * @param (time_ms) 何ms分Delayさせるか
+     * @param (delay_time) 何ms分Delayさせるか
+     * @param (decay_rate)
      */
-    tapOut(tapIn* inRef, float time_ms){
+    tapOut(tapIn* inRef, int delay_time, float decay_rate){
+        //! 現在のdelaytime(ms)
+        currentDelayTime = delay_time;
+        //! 現在のdecayrate
+        currentDecayRate = decay_rate;
         //! バッファ
         ref = inRef->buffer;
         //! 保持されている音のサンプルサイズ
@@ -70,7 +80,7 @@ public:
         //! サンプルレート
         sampleRate = inRef->sampleRate;
         //! 保持されているサンプルの中からディレイで使うサンプル
-        readPoint = size - (time_ms*0.001*sampleRate)-1;
+        readPoint = size - (currentDelayTime*0.001*sampleRate)-1;
         
     }
     /**
@@ -82,7 +92,17 @@ public:
         float temp = ref[readPoint];
         readPoint++;
         if(readPoint >= size){readPoint = 0;}
-        return temp;
+        return temp * currentDecayRate;
+    }
+
+    void changeDelayTime(float newDelayTime){
+        readPoint -= (newDelayTime - currentDelayTime) * 0.001 * sampleRate;
+        if(readPoint >= size){readPoint = 0;}
+        currentDelayTime = newDelayTime;
+    }
+
+    void changeDecayRate(float newDecayRate){
+        currentDecayRate = newDecayRate;
     }
     
     

@@ -25,8 +25,8 @@ void ofApp::setup(){
     inputBuffer.resize(bufferSize);
     
     myTapIn = new tapIn(MAXDELAYTIME, sampleRate);
-    
-    myTapOut = new tapOut(myTapIn, DELAYTIME);
+
+    myTapOut = new tapOut(myTapIn, DELAYTIME, DECAYRATE);
     
     ofSoundStreamSetup(2, 1, sampleRate, bufferSize, 4);
 }
@@ -55,19 +55,25 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
         float currentSample = inputBuffer[i];
         float tapOutSample = myTapOut->getSample();
         
-        myTapIn->feed(currentSample + (tapOutSample*DECAYRATE));
-        //myTapIn->feed(currentSample);
+        myTapIn->feed(currentSample + (tapOutSample));
         
-        
-        buffer[i*nChannels+0] = currentSample + (tapOutSample*DECAYRATE);
-        buffer[i*nChannels+1] = currentSample + (tapOutSample*DECAYRATE);
+        buffer[i*nChannels+0] = currentSample + (tapOutSample);
+        buffer[i*nChannels+1] = currentSample + (tapOutSample);
     }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
+    if (key == 'd'){
+        int new_delay_time = 100;
+        float new_decay_rate = 0.2;
+        myTapOut->changeDelayTime(new_delay_time);
+        myTapOut->changeDecayRate(new_decay_rate);
+    } else if (key == 'z'){
+        myTapOut->changeDelayTime(DELAYTIME);
+        myTapOut->changeDecayRate(DECAYRATE);
+    }
 }
 
 //--------------------------------------------------------------
