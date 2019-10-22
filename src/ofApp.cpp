@@ -23,7 +23,7 @@ void ofApp::setup(){
     bufferSize = BUFFERSIZE;
     sampleRate = SAMPLERATE;
     inputBuffer.resize(bufferSize);
-    
+
     myDelayIn = new delayIn(MAXDELAYTIME, sampleRate);
     myDelayOut = new delayOut(myDelayIn, DELAYTIME, DECAYRATE);
     delayOn = false;
@@ -53,17 +53,13 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
     for(int i = 0; i < bufferSize; i++){
         
         float currentSample = inputBuffer[i];
+        float delayOutSample = 0;
         if (delayOn == true){
-            float delayOutSample = myDelayOut->getSample();
-            
+            delayOutSample = myDelayOut->getSample();
             myDelayIn->feed(currentSample + (delayOutSample));
-            
-            buffer[i*nChannels+0] = currentSample + (delayOutSample);
-            buffer[i*nChannels+1] = currentSample + (delayOutSample);
-        } else{
-            buffer[i*nChannels+0] = currentSample;
-            buffer[i*nChannels+1] = currentSample;
         }
+        buffer[i*nChannels+0] = currentSample + delayOutSample;
+        buffer[i*nChannels+1] = currentSample + delayOutSample;
     }
     
 }
