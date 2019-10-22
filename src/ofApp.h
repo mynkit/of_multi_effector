@@ -97,7 +97,6 @@ public:
      * @fn
      * delaytimeを変更する
      * @param (delaytime) 新たなdelaytime
-     * @return 現在のサンプル
      */
     void changeDelayTime(float newDelayTime){
         readPoint -= (newDelayTime - currentDelayTime) * 0.001 * sampleRate;
@@ -109,7 +108,6 @@ public:
      * @fn
      * decayrateを変更する
      * @param (newDecayRate) 新たなdecayrate
-     * @return 現在のサンプル
      */
     void changeDecayRate(float newDecayRate){
         currentDecayRate = newDecayRate;
