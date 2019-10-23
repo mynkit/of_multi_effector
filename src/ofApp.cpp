@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-const int BUFFERSIZE = 256; //! バッファサイズ
+const int BUFFERSIZE = 1024; //! バッファサイズ
 const int SAMPLERATE = 44100; //! サンプルレート(Hz)
 
 const int MAXDELAYTIME = 1000; //! delayの間隔の最大値(これよりDELAYTIMEが上回るとエラー)．
@@ -51,13 +51,13 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
     for(int i = 0; i < bufferSize; i++){
         
         float currentSample = inputBuffer[i];
-        float delayOutSample = 0;
         if (delayOn == true){
-            delayOutSample = myDelayOut->getSample();
-            myDelayIn->feed(currentSample + (delayOutSample));
+            float delayOutSample = myDelayOut->getSample();
+            currentSample += delayOutSample;
+            myDelayIn->feed(currentSample);
         }
-        buffer[i*nChannels+0] = currentSample + delayOutSample;
-        buffer[i*nChannels+1] = currentSample + delayOutSample;
+        buffer[i*nChannels+0] = currentSample;
+        buffer[i*nChannels+1] = currentSample;
     }
     
 }
