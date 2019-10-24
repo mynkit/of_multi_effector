@@ -821,7 +821,9 @@ obj/osx/Release/src/ofApp.o: \
   /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/libs/openFrameworks/video/ofAVFoundationVideoPlayer.h \
   /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/libs/openFrameworks/3d/of3dUtils.h \
   /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/libs/openFrameworks/3d/ofCamera.h \
-  /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/libs/openFrameworks/3d/ofEasyCam.h
+  /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/libs/openFrameworks/3d/ofEasyCam.h \
+  /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/apps/myApps/delay_sample/src/delayEffect.h \
+  /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/apps/myApps/delay_sample/src/holdIn.h
 
 /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/apps/myApps/delay_sample/src/ofApp.h:
 
@@ -2466,3 +2468,7 @@ obj/osx/Release/src/ofApp.o: \
 /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/libs/openFrameworks/3d/ofCamera.h:
 
 /Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/libs/openFrameworks/3d/ofEasyCam.h:
+
+/Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/apps/myApps/delay_sample/src/delayEffect.h:
+
+/Users/keitamiyano/openframeworks/of_v0.10.1_osx_release/apps/myApps/delay_sample/src/holdIn.h:
