@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-const int BUFFERSIZE = 1024; //! バッファサイズ
+const int BUFFERSIZE = 256; //! バッファサイズ(256推奨．大きくすると処理に余裕はでるが遅延が長くなる)
 const int SAMPLERATE = 44100; //! サンプルレート(Hz)
 
 const int MAXDELAYTIME = 1000; //! delayの間隔の最大値(これよりDELAYTIMEが上回るとエラー)．
