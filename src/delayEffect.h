@@ -79,6 +79,12 @@ public:
         currentDecayRate = newDecayRate;
     }
 
+    /**
+     * @fn
+     * effect部分の実装
+     * @param (inref) holdInオブジェクト
+     * @param (sample) 現在のsample
+     */
     float effect(holdIn* inref, float sample){
         sample += getSample();
         inref->feed(sample);
