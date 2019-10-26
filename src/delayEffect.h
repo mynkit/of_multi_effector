@@ -78,6 +78,12 @@ public:
     void changeDecayRate(float newDecayRate){
         currentDecayRate = newDecayRate;
     }
+
+    float effect(holdIn* inref, float sample){
+        sample += getSample();
+        inref->feed(sample);
+        return sample;
+    }
     
     
 };

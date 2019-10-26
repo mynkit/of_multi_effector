@@ -52,9 +52,7 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
         
         float currentSample = inputBuffer[i];
         if (delayOn == true){
-            float delayOutSample = myDelayOut->getSample();
-            currentSample += delayOutSample;
-            myHoldIn->feed(currentSample);
+            currentSample = myDelayOut->effect(myHoldIn, currentSample);
         }
         buffer[i*nChannels+0] = currentSample;
         buffer[i*nChannels+1] = currentSample;
