@@ -49,10 +49,10 @@ public:
     }
     /**
      * @fn
-     * 現在のサンプルを返す
+     * 現在のサンプルをcurrentDelayTime分遅らせて返す
      * @return 現在のサンプル
      */
-    float getSample(){
+    float getDelaySample(){
         float temp = ref[readPoint];
         readPoint++;
         if(readPoint >= size){readPoint = 0;}
@@ -86,7 +86,7 @@ public:
      * @param (sample) 現在のsample
      */
     float effect(holdIn* inref, float sample){
-        sample += getSample();
+        sample += getDelaySample();
         inref->feed(sample);
         return sample;
     }
