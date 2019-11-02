@@ -41,10 +41,15 @@ public:
     // inputされた音の保持オブジェクト
     holdIn* myHoldIn;
 
+    // sin波
+    float phase;
+    int frequency;
+
     // delay
     delayOut* myDelayOut;
     bool delayOn;
 
-    //
+    // ring modulator
+    bool ringModulatorOn;
     
 };

@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-const int BUFFERSIZE = 256; //! バッファサイズ(256推奨．大きくすると処理に余裕はでるが遅延が長くなる)
+const int BUFFERSIZE = 512; //! バッファサイズ(256推奨．大きくすると処理に余裕はでるが遅延が長くなる)
 const int SAMPLERATE = 44100; //! サンプルレート(Hz)
 
 const int MAXDELAYTIME = 1000; //! delayの間隔の最大値(これよりDELAYTIMEが上回るとエラー)．
@@ -20,6 +20,7 @@ void ofApp::setup(){
     
     bufferSize = BUFFERSIZE;
     sampleRate = SAMPLERATE;
+    frequency = 440;
     inputBuffer.resize(bufferSize);
 
     myHoldIn = new holdIn(MAXDELAYTIME, sampleRate);
@@ -47,10 +48,24 @@ void ofApp::audioIn(float* buffer, int bufferSize, int nChannels){
 
 //--------------------------------------------------------------
 void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
+
+    float phaseDiff;
+
+    phaseDiff = TWO_PI * frequency/sampleRate;
     
     for(int i = 0; i < bufferSize; i++){
+
+		phase += phaseDiff;
+		
+		while (phase > TWO_PI) {
+			phase -= TWO_PI;
+		}
         
         float currentSample = inputBuffer[i];
+        if (ringModulatorOn == true){
+            //currentSample = 0.01 * sin(phase);
+            currentSample = currentSample * sin(phase);
+        }
         if (delayOn == true){
             currentSample = myDelayOut->effect(myHoldIn, currentSample);
         }
@@ -62,10 +77,13 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if (key == 'd'){
+    if (key == 'r'){
+        ringModulatorOn = true;
+    } else if (key == 'd'){
         delayOn = true;
     } else if (key == 'z'){
         delayOn = false;
+        ringModulatorOn = false;
     }
 }
 
@@ -83,6 +101,10 @@ void ofApp::mouseMoved(int x, int y ){
         if(new_decay_rate >= 0.7){new_decay_rate = 0.7;}
         myDelayOut->changeDelayTime(new_delay_time);
         myDelayOut->changeDecayRate(new_decay_rate);
+    }
+    if (ringModulatorOn == true){
+        frequency = x / 10.0;
+        if(frequency < 1){frequency = 1;}
     }
 }
 
