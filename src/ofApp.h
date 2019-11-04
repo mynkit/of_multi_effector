@@ -10,6 +10,7 @@
 #include "ofMain.h"
 #include "delayEffect.h"
 #include "holdIn.h"
+#include "overdriveEffect.h"
 
 class ofApp : public ofBaseApp{
     
@@ -41,9 +42,31 @@ public:
     // inputされた音の保持オブジェクト
     holdIn* myHoldIn;
 
+    // overdrive
+    overdriveOut* myOverdriveOut;
+    bool overdriveOn;
+
     // sin波
     float phase;
     int frequency;
+    float bw;
+    bool peakingfilterOn;
+
+    float omega;
+    float alpha;
+    float A;
+    // フィルタ計算用のバッファ変数。
+	float in1;
+	float in2;
+	float out1;
+	float out2;
+    
+    float a0;
+    float a1;
+    float a2;
+    float b0;
+    float b1;
+    float b2;
 
     // delay
     delayOut* myDelayOut;
