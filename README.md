@@ -1,4 +1,4 @@
-# delay_sample
+# of_multi_effector
 
 ## openFrameworks
 [github page](https://github.com/openframeworks/openFrameworks)
